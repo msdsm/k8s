@@ -1,4 +1,4 @@
-# Myk8s
+# yagikota-Myk8s
 
 ## 準備
 - Docker for Desktopでk8sを有効化
@@ -70,3 +70,4 @@ curl http://localhost:{ここにポート番号}
 
 ## 参考文献
 - https://github.com/yagikota/Myk8s
+- https://qiita.com/dsagnlaiweudlbfna/items/55b162197afa74306067
