@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: guestbook-ingress
+spec:
+  rules:
+    - host: example.com # ホスト名を追加
+      http:
+        paths:
+          - path: /
+            pathType: Prefix # pathTypeを追加
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
