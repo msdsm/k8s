@@ -47,6 +47,7 @@ kubectl describe ingress guestbook-ingress
 kubectl describe pod -n ingress-nginx ingress-nginx-controller-57f6b75ff5-4tsht
 kubectl logs -n ingress-nginx ingress-nginx-controller-57f6b75ff5-4tsht
 ```
+- addressがlocalhostにならない
 
 ## 用語メモ
 ### ローリングアップデート(rolling update)
