@@ -68,3 +68,16 @@
   - `-o [wide|yaml]` : 出力形式を指定
     - `wide` : 追加情報の表示
     - `yaml` : YAML形式で表示
+- `kubectl exec -it POD sh` : 指定したPodに入ってシェル操作を行えるようにする
+  - `POD` : 中に入りたいPod名
+
+## マニフェストファイルの構成
+- 種別、メタデータ、コンテナ定義の3構成
+- (apiVersion, kind), (metadata), (spec)
+- `apiVersion`でapi version指定
+- `kind`でリソース指定
+- `metadata.name`で一意に定まる名前を定義
+- `metadata.labels`でkey-value型の任意の名前を定義
+- `spec.containers.name`でコンテナ名を定義
+- `spec.containers.image`でimageを定義
+- `spec.containers.command`, `spec.containers.args`でコマンド指定可能
