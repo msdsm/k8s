@@ -91,8 +91,27 @@
 - `kind`でリソース指定
 - `metadata.name`で一意に定まる名前を定義
 - `metadata.labels`でkey-value型の任意の名前を定義
+
+### podのマニフェストファイル
 - `spec.containers.name`でコンテナ名を定義
 - `spec.containers.image`でimageを定義
 - `spec.containers.command`, `spec.containers.args`でコマンド指定可能
 - `spec.containers.env`で環境変数を設定
 - `spec.containers.volumeMounts`でコンテナへマウントするストレージを指定、このとき`spec.volumes.name`に一致させる
+
+### ReplicaSetのマニフェストファイル
+- 主要な`spec`は`replicas`, `selector`, `template`
+- `replicas`はPodを複製する数を指定でき、この値を変更することでスケールアウトやスケールインが可能
+- `selector`は複製するPod数を数えるために使うラベルを指定
+- `template`は複製するPodのマニフェストを指定し、中身はPodと同じ
+```yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: sample
+  namespace: default
+spec:
+  replicas: ...
+  selector: ...
+  template: ...
+```
