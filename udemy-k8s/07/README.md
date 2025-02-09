@@ -100,3 +100,10 @@
 - `kubectl apply -f statefulset.yml`
 - `kubectl run debug --image=centos:7 -it --rm --restart=Never -- sh`
 - `curl http://nginx-0.sample-svc`
+
+## ingress作成 : `07-09`
+### 概要
+1. Deployment, Serviceを準備
+2. Ingressを作成
+3. 外部からアクセス
+### コマンド

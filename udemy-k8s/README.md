@@ -266,3 +266,21 @@ spec:
   volumeClaimTemplaates: # PVCのテンプレートを定義
     ...
 ```
+
+### Ingressのマニフェストファイル
+- Ingressとは外部公開、L7ロードバランサー
+- URLでサービスを切り替えられる
+```yaml
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: frontend
+spec:
+  rules:
+  - http:
+    paths:
+    - path: /
+      backend: # ここに転送先のサービスを指定する
+        serviceName: web-svc
+        servicePort: 80
+```
