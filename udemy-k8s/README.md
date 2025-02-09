@@ -164,3 +164,19 @@ spec:
   ports: ...
   selector: ...
 ```
+
+### ConfigMapのマニフェストファイル
+- Kubernetesで利用する設定情報
+- `spec`ではなく`data`にキーバリューで保存
+- ConfigMapのリソース利用方法は2種類
+  - 環境変数へ渡す : `spec.containers.env.valueFrom`にConfigMapを指定
+  - ファイルとしてマウント : `spec.volumes`と`spec.containers.volumeMounts`に指定
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sample
+  namespace: default
+data:
+  KEY: VALUE
+```

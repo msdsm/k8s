@@ -55,3 +55,14 @@
 - `kubectl apply -f service.yml`
 - `localhost:30000`のノードポートにアクセス
 - nginxのページが開ければok
+
+## ConfigMap作成: `07-05`
+### 概要
+1. ConfigMapとPodを含むマニフェストファイル作成
+2. リソース作成
+3. Podに入ってConfigMapが接続されていることを確認
+### コマンド
+- `kubectl apply -f configmap.yml`
+- `kubectl exec -it sample -- sh`
+- `cat /home/nginx/sample.cfg`でConfigMapで指定したファイルがマウントされていることを確認
+- `env`を実行してConfigMapで指定した環境変数が入っていることを確認
