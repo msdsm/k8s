@@ -70,3 +70,26 @@
 - `vi sample2.txt`
 - `kubectl cp debug:/root/sample2.txt ./sample2.txt`
 - `cat sample2.txt`
+
+## nginxのアクセスログを確認 : `06-06`
+### 概要
+1. CentOSとnginxのPodを起動
+2. CentOSとnginxの状態を確認
+3. CentOSに入る
+4. curlでnginxにアクセス
+5. CentOSから出る
+6. nginxのログを確認
+7. CentOSとnginxのPodを削除
+### コマンド
+- `kubectl apply -f pods.yml`
+- `kubectl describe pod/debug`
+- `kubectl describe pod/nginx`
+- `kubectl get pod -o wide`
+- `kubectl exec -it debug -- sh`
+- `curl http://10.244.0.12 `
+- `exit`
+- `kubectl logs pod/nginx`
+  - 以下のようなアクセスログが出力される
+  ```
+  10.244.0.11 - - [09/Feb/2025:07:01:57 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.29.0" "-"
+  ```

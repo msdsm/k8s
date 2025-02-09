@@ -78,7 +78,11 @@
   - `pod-name` : 転送先のPod名
   - `dest` : 転送先フォルダ名/ファイル名
 - `kubectl cp <pod-name>:<src> <dest>` : ファイル転送(Pod->ホスト)
-
+- `kubectl describe [TYPE/NAME]` : 指定したリソースの状態を確認
+  - `TYPE/NAME` : リソース種別とリソース名を指定
+- `kubectl logs [TYPE/NAME][--tail=n]` : 指定したリソースの状態を確認
+  - `TYPE/NAME` : リソース種別とリソース名を指定
+  - `--tail=n` : 直近のnレコードだけ取得
 
 ## マニフェストファイルの構成
 - 種別、メタデータ、コンテナ定義の3構成
