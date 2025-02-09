@@ -90,6 +90,11 @@
   - `TYPE` : リソース種別
   - `NAME` : リソース名
   - `--to-revision=N` : 指定されたリビジョンに戻す
+- `kubectl create secret generic NAME [option]` : Secret作成
+  - `NAME` : Secretの名前を指定
+  - オプション
+    - `--from-literal=key=value` : キーバリューを指定して作成
+    - `--from-file=filename` : ファイルから作成 
 
 ## マニフェストファイルの構成
 - 種別、メタデータ、コンテナ定義の3構成
@@ -171,6 +176,23 @@ spec:
 - ConfigMapのリソース利用方法は2種類
   - 環境変数へ渡す : `spec.containers.env.valueFrom`にConfigMapを指定
   - ファイルとしてマウント : `spec.volumes`と`spec.containers.volumeMounts`に指定
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sample
+  namespace: default
+data:
+  KEY: VALUE
+```
+
+### Secretのマニフェストファイル
+- SecretとはKubernetes上で扱う機微情報
+- ConfigMapと同様に`spec`ではなく`data`にキーバリューで保存
+- リソース生成方法は以下の2種類
+  - コマンドで直接生成 : キーバリューは引数で複数指定
+  - マニフェストファイルから生成 : マニフェストファイルから生成はkubectl applyでありBase64文字列の取得が必要
+- 利用方法はConfigMapと同様に2種類あり、環境変数利用とマウント利用
 ```yaml
 apiVersion: v1
 kind: ConfigMap

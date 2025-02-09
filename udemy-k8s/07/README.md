@@ -66,3 +66,19 @@
 - `kubectl exec -it sample -- sh`
 - `cat /home/nginx/sample.cfg`でConfigMapで指定したファイルがマウントされていることを確認
 - `env`を実行してConfigMapで指定した環境変数が入っていることを確認
+
+## Secret作成: `07-06`
+### 概要
+1. SecretとPodを含むマニフェストファイル作成
+2. リソース作成
+3. Podに入ってSecretが接続されていることを確認
+
+### コマンド
+- コマンドでやる方法は以下
+  - `kubectl create secret generic sample-secret --from-literal=message='Hello World !' --from-file=./keyfile`
+  - `kubectl get secret/sample-secret -o yaml`
+  - `kubectl delete secret/sample-secret`
+- ファイルでやる方法は以下
+  - `kubectl apply -f secret.yml`
+  - `kubectl exec -it sample -- sh`
+  - `kubectl delete -f secret.yml`
