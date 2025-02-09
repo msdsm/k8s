@@ -67,7 +67,7 @@ kubectl logs -n ingress-nginx ingress-nginx-controller-57f6b75ff5-4tsht
   - podのライフサイクル : podの起動、停止、スケーリング、再起動
 - 以下の図がわかりやすい
   - Nodeの集合がDataPlaneで、DataPlaneとControlPlaneを合わせてCluster
-![cluster](./cluster.png)
+![cluster](./images/cluster.png)
 (https://qiita.com/Kta-M/items/ce475c0063d3d3f36d5d より引用)
 
 ### 宣言的設定と命令的設定
