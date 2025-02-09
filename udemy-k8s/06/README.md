@@ -53,3 +53,20 @@
 - `curl http://10.244.0.8` : CentOSコンテナ内からnginx podにhttpリクエスト送る
   - nginxのhtmlが返ってきたらok
 - `kubectl delete -f pods.yml`
+
+## Podとホスト間でファイル転送
+### 概要
+1. CentOSのPodを起動
+2. ホスト上でファイル作成してPodへ転送
+3. Podへ入って確認
+4. Pod上でファイル作成
+5. Podからホストへファイルを転送して確認
+6. CentOSのPodを削除
+### コマンド
+- `kubectl apply -f pod.yml`
+- `kubectl cp ./sample.txt debug:/var/tmp/sample.txt`
+- `kubectl exec -it debug -- sh`
+- `cat /var/tmp/sample.txt`
+- `vi sample2.txt`
+- `kubectl cp debug:/root/sample2.txt ./sample2.txt`
+- `cat sample2.txt`

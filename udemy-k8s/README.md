@@ -70,6 +70,15 @@
     - `yaml` : YAML形式で表示
 - `kubectl exec -it POD sh` : 指定したPodに入ってシェル操作を行えるようにする
   - `POD` : 中に入りたいPod名
+- `kubectl cp SRC DEST` : ファイル転送
+  - `SRC` : 転送元ファイル
+  - `DEST` : 転送先ファイル
+- `kubectl cp <src> <pod-name>:<dest>` : ファイル転送(ホスト->Pod)
+  - `src` : 転送元ファイル名/フォルダ名
+  - `pod-name` : 転送先のPod名
+  - `dest` : 転送先フォルダ名/ファイル名
+- `kubectl cp <pod-name>:<src> <dest>` : ファイル転送(Pod->ホスト)
+
 
 ## マニフェストファイルの構成
 - 種別、メタデータ、コンテナ定義の3構成
