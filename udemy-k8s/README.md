@@ -202,3 +202,67 @@ metadata:
 data:
   KEY: VALUE
 ```
+
+### PersistentVolume(PV)のマニフェストファイル
+- PVとは永続データの実態でありストレージを抽象化する
+- 主要3プロパティと削除時動作と保存時情報から構成される
+- ストレージを抽象化定義する3プロパティ
+  - `storageClassName`
+  - `accessModes`
+  - `capacity`
+- 削除時動作を定義するプロパティ
+  - `persistentVolumeReclaimPolicy`
+  - RetainはPVCが消えてもPVを残すことを意味する
+  - DeleteはPVCが消えたらPVも消すことを意味する
+- 保存先を定義するプロパティ
+  - `hostPath`
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: storage
+spec:
+  storageClassName: host # ストレージの種類を定義
+  accessModes: ["ReadWriteMany"] # 読み書きの定義(ReadWriteOnce, ReadOnlyMany, ReadWriteMany)
+  capacity: # ストレージ容量の定義
+    storage: 1Gi
+  persistentVolumeReclaimPolicy: Retain # 削除時動作を定義するプロパティ
+  hostPath:
+    path: "/data/storage"
+    type: Directory
+```
+
+### PersistentVolumeClaim(PVC)のマニフェストファイル
+- PVCとは永続データの要求
+- PVC -> PV -> Storage
+- PVの主要3プロパティから構成される
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: volume-claim
+spec:
+  storageClassName: slow
+  accessModes: ["ReadWriteMany"]
+  resources:
+    requests:
+      storage: 1Gi
+```
+
+### StatefulSetのマニフェストファイル
+- StatefulSetはPodの集合でPodをスケールする際の名前が一定
+- マニフェストファイルはdeploymentと似ている
+```yaml
+apiVersion: apps/v1
+kind: StatefulSet
+...
+spec:
+  ...
+  updateStrategy:
+    type: RollingUpdate
+  serviceName: frontend
+  template: 
+    ...
+  volumeClaimTemplaates: # PVCのテンプレートを定義
+    ...
+```

@@ -82,3 +82,21 @@
   - `kubectl apply -f secret.yml`
   - `kubectl exec -it sample -- sh`
   - `kubectl delete -f secret.yml`
+
+## 永続データ(PV, PVC)作成 : `07-07`
+### 概要
+1. PVとPVCを含むマニフェストファイルを作成
+2. リソース作成
+### コマンド
+- `kubectl apply -f storage.yml`
+- `kubectl get pvc,pv`
+- `kubectl delete -f storage.yml`
+
+## StatefulSet作成 : `07-08`
+### 概要
+1. StatefulSetおよびServiceのマニフェストを作成
+2. デバッグ用PodからService経由でPodにアクセス
+### コマンド
+- `kubectl apply -f statefulset.yml`
+- `kubectl run debug --image=centos:7 -it --rm --restart=Never -- sh`
+- `curl http://nginx-0.sample-svc`
