@@ -45,3 +45,13 @@
   - ロールバック
 - `kubectl rollout history deploy/nginx`
   - 以前のものに戻っている
+
+## Service作成: `07-04`
+### 概要
+1. NodePortのServiceマニフェストファイル作成
+2. リソース作成
+3. ブラウザからアクセスして動作確認
+### コマンド　
+- `kubectl apply -f service.yml`
+- `localhost:30000`のノードポートにアクセス
+- nginxのページが開ければok

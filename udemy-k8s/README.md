@@ -143,3 +143,24 @@ spec:
   strategy: ...
   template: ...
 ```
+
+### Serviceのマニフェストファイル
+- Serviceは外部公開、名前解決、L4ロードバランサー
+- 以下の4種類がある
+  - ClusterIP
+  - NodePort
+  - LoadBalancer
+  - ExternalName
+- 主要なspecは4種類
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample
+  namespace: default
+spec:
+  type: ... # 4種類から選択
+  clusterIP: ... # ClusterIPを選択した場合はNone, 空文字, IPアドレスのいずれかを指定
+  ports: ...
+  selector: ...
+```
