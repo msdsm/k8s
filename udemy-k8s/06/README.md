@@ -54,7 +54,7 @@
   - nginxのhtmlが返ってきたらok
 - `kubectl delete -f pods.yml`
 
-## Podとホスト間でファイル転送
+## Podとホスト間でファイル転送 : `06-05`
 ### 概要
 1. CentOSのPodを起動
 2. ホスト上でファイル作成してPodへ転送
