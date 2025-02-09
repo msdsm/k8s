@@ -83,6 +83,13 @@
 - `kubectl logs [TYPE/NAME][--tail=n]` : 指定したリソースの状態を確認
   - `TYPE/NAME` : リソース種別とリソース名を指定
   - `--tail=n` : 直近のnレコードだけ取得
+- `kubectl rollout history TYPE/NAME` : ロールアウトの履歴確認
+  - `TYPE` : リソース種別
+  - `NAME` : リソース名
+- `kubectl rollout undo TYPE/NAME --to-revision=N` : ロールバック
+  - `TYPE` : リソース種別
+  - `NAME` : リソース名
+  - `--to-revision=N` : 指定されたリビジョンに戻す
 
 ## マニフェストファイルの構成
 - 種別、メタデータ、コンテナ定義の3構成
@@ -113,5 +120,26 @@ metadata:
 spec:
   replicas: ...
   selector: ...
+  template: ...
+```
+
+### Deploymentのマニフェストファイル
+- DeploymentとはReplicaSetの集合
+- ReplicaSetの世代管理が可能
+- 主要な`spec`は5種類
+- `replicas`, `selector`, `template`はReplicaSetと同じ
+- `revisionHistoryLimit`はReplicaSetの履歴保存数を指定
+- `strategy`はデプロイ方法を指定
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample
+  namespace: default
+spec:
+  replicas: ...
+  selector: ...
+  revisionHistoryLimit: ...
+  strategy: ...
   template: ...
 ```

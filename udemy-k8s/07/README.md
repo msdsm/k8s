@@ -14,7 +14,7 @@
 - 次に、ホストマシン上で`message.txt`を編集後にコンテナ上で`cat`で見ると変更されていることを確認
 - `kubectl delete pod/sample`
 
-## ReplicaSet : `07-02`
+## ReplicaSet作成 : `07-02`
 ### 概要
 1. ReplicaSetマニフェストファイル作成
 2. リソース作成
@@ -27,3 +27,21 @@
 - 再度`kubectl apply -f replicaset.yml`
 - `kubectl get pod`
 - 3個作成されている
+
+## Deployment作成 : `07-03`
+### 概要
+1. Deploymentマニフェストファイルを作成
+2. リソース作成
+3. ロールアウト履歴確認
+4. Deployment修正
+5. ロールアウト履歴確認
+6. ロールバック
+### コマンド
+- `kubectl apply -f deployment.yml`
+- `deployment.yml`でannotationsにコメント追加してnginxのimage version変更してapply
+- `kubectl rollout history deploy/nginx`
+  - 履歴表示される
+- `kubectl rollout undo deploy/nginx`
+  - ロールバック
+- `kubectl rollout history deploy/nginx`
+  - 以前のものに戻っている
