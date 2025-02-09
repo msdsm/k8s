@@ -94,3 +94,5 @@
 - `spec.containers.name`でコンテナ名を定義
 - `spec.containers.image`でimageを定義
 - `spec.containers.command`, `spec.containers.args`でコマンド指定可能
+- `spec.containers.env`で環境変数を設定
+- `spec.containers.volumeMounts`でコンテナへマウントするストレージを指定、このとき`spec.volumes.name`に一致させる

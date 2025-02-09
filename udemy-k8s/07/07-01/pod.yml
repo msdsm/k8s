@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: sample
+
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.17.2-alpine
+    volumeMounts:
+    - name: storage
+      mountPath: /home/nginx
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+  volumes:
+  - name: storage
+    hostPath:
+      path: /Users/masuda/mywork/k8s/udemy-k8s/07/07-01/nginx
+      type: Directory
