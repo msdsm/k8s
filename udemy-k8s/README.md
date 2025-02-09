@@ -55,3 +55,16 @@
 | コンテナログ表示 | `docker container logs` | `docker logs` |
 | コンテナ内でコマンド実行 | `docker container exec` | `docker exec` |
 | コンテナ内にアタッチ | `docker container attach` | `docker attach` |
+
+
+## kubectlコマンド
+- `kubectl apply -f <filename>` : マニフェストファイルを指定してリソースを作成/変更
+- `kubectl get [-f <filename>][TYPE]` : 指定したリソースの状態を確認
+  - `-f <filename>` : マニフェストファイルsパス
+  - `TYPE` : リソース種別 (pod, replicasetなど)
+- `kubectl delete [-f <filename>][TYPE/NAME][-o [wide|yaml]]` : リソース削除コマンド
+  - `-f` : マニフェストファイルパス
+  - `TYPE/NAME` : リソース種別/リソース名
+  - `-o [wide|yaml]` : 出力形式を指定
+    - `wide` : 追加情報の表示
+    - `yaml` : YAML形式で表示
