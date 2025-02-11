@@ -80,3 +80,18 @@ flowchart LR
 2. `kubectl apply -f debug-pod.yml`
 3. `kubectl exec -it debug -- sh`でpodに入る
 4. `jq`, `mongodb`, `ip`コマンドを実行できるか確認
+
+## 2. DBサーバーのイメージ作成
+### 内容
+1. DB初期化処理実装
+2. イメージ作成
+3. コンテナに入って動作確認
+### 手順
+1. `docker-entrypoint.sh`, `.dockerignore`, `Dockerfile`を実装
+2. `docker build -t weblog-db:v1.0.0 .`
+3. `docker run -d weblog-db:v1.0.0`
+4. `docker container ls`      
+5. `docker exec -it vibrant_babbage sh`
+6. `mongo`で動作確認
+7. `docker container stop vibrant_babbage`
+8. `docker container prune`
