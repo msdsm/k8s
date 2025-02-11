@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongo-secret
+  namespace: default
+  labels:
+    app: weblog
+    type: database
+data:
+  keyfile: Z2kwYitjcm9aYU1yN0RhTXFCNHdmR0hvWGpWeXNhb0NJYzFMYkFLR1d0a2lkbkZOK2gwWXNnRzFHbDdVOUZHa2tIY1FIRkowNEZqd0FXOVNTZ0dPK0tZK2MrRW9YS1JPMG9kRmdFME1BWlArSU5NOWZBU1VzTVZ1WlVLTStDUWpiRGVzbittSS9nT1Q4R0V2MWZYOEtWRTM2WkpDZjlnMzdzOE9aSzNBUWZqcVhadlJkbmVDQytGZERHcHJOeXVvVUhxWlkvaTNOd3d4cWtNNURqczB5dGNNL3p1L2RFNm5yZGdyOHYwOCtCbHdIRFJFU1FRZjRNSWwzbWcrY3k5ckU0L2NqUlhwcElISlc4c1pLdGZ0VFYwUndLT0I1dkUrUXpPaUtRakV0WFA5RUppZXJheUM1MWg3cmFHbmVjenJYS0x1ZDlzTldIVnV5MFJraXMwTHRKQkRWbDVlcVZtaEpuMTM5RHlkekgvMGRSeVZ3V0lRZllsSUxQS1hWeW5aUUtMYnF2UjV1VC92QTZKSXlFVnJ2a2RFRHlqdCs2R0hvODYxOERhdTYzWU50QlFpUUkrblNSaTZLZHNLdW4wNll4bk56eXQ3T09iL3NpYzRCTXl3TlE1ZmFyOGYrMEpUbHRua0ppYk9KMUFEMlRDa3U2ZEZMNTF4Tis2TWhrdkxKTGNHSy9vTXJQalRVZlJMeDFiUXcyT1duUWhhc2owYzJvTjgvL09HQUZUeVc2K2htWVpGc0F5WFZ5dUp3cXFpa2JQUWdBT3hSSWtWcERlbHVIRm85MkhGcXNDRlFlU0Fvc0Q2anc1elFYRXJaTzA3T2RXZEFIRXRGYXhhUnJMcGs2RnBndldzaDBjOWlDU2dZWlFadzhZWTh5eHhCeDBDNzQ4TTZ5SFBNNmN4MW5pZG9vZG1yRjBtd0dDbEs3S25pSVNoU2hUUTUyUkNyODlmaEtYNjRFMllrUVRxaDdZckdQWDdOMGlrWWNZQk5oM3RRdFhILzQzL0h3dS9NWCtzeWRxcGxLZ29TRVRXVUpYY1drbFkrZlNBN1pkaTJnSGIyRlFyTVFKaWFnakJBNlp4Y1I1WUExTGxrV211aytUamlieDM3elJsNGt4b0sxaDBZRXlrS2Q0SzVaMzRZdzkwR3VGUVRQbjBTaE9xeHo4QmRxTWh1aU5HV1duL0poNVdPUEZ6bUpsWlZqRWZyVWRheWIrWWxGSndNV1NWdktnV1ZxUkwvb2NIT0U1cU9TK21BK1phWkVTc1F4QjdzaVhqSk5ibkJlbURTaXBROURia2s3aElpcWxVZ2MzQ1R4S0hCUjdCNUQ5Ui9za1JJUkY1YUc4QUJDU0JicDlveXliRwo=
+  root_password: UGFzc3cwcmQ=
+  root_username: YWRtaW4=
+  weblog_username: dXNlcg== # user
+  weblog_password: d2VsY29tZQ== # welcome
+type: Opaque
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodeapp
+  namespace: default
+  labels:
+    app: weblog
+    type: application
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: weblog
+      type: application
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  revisionHistoryLimit: 14
+  template:
+    metadata:
+      name: nodeapp
+      namespace: default
+      labels:
+        app: weblog
+        type: application
+    spec:
+      containers:
+      - name: node
+        image: weblog-app:v1.0.0
+        imagePullPolicy: Never
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
+        env:
+        - name: "MONGODB_USERNAME"
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: weblog_username
+        - name: "MONGODB_PASSWORD"
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: weblog_password
+        - name: "MONGODB_HOSTS"
+          value: "mongo-0.db-svc:27017,mongo-1.db-svc:27017,mongo-2.db-svc:27017,"
+        - name: "MONGODB_DATABASE"
+          value: "weblog"
+        - name: "MONGODB_REPLICASET"
+          value: "rs0"
