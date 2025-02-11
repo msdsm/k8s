@@ -152,7 +152,7 @@ flowchart LR
 3. MongoDBへ接続
 4. 設定したユーザー名/パスワードで認証
 5. DB一覧を表示
-### 
+### 手順
 1. `weblog-db-statefulset.yml`でStatefulSetを定義してPodをStatefulSetのtemplateに移動
 2. `kubectl applpy -f weblog-db-statefulset.yml`
 3. `kubectl get pod`で3個(replicasでしたいした個数)作成される
@@ -161,3 +161,23 @@ flowchart LR
 6. `exit`, `exit`
 7. `kubectl delete -f weblog-db-statefulset.yml`
 8. `persistentvolume/volume-00`を02まで
+
+## **7. DBサーバーの構築 (HeadlessService)** : `08-07`
+## 概要
+- レプリカセットの初期化を行う
+  - mongodbにおけるレプリカセットの初期化は`rs.initiate()`メソッドで初期化する
+  - Pod名+HeadlessService名で名前解決できる
+1. PV, Secret, StatefulSet, Serviceを作成
+2. 作成したPodへ入る
+3. MongoDBを初期化
+4. レプリカセットを構築できていることを確認
+## 手順
+- `weblog-db-statefulset.yml`にService作成
+- `kubectl apply -f weblog-db-statefulset.yml`
+- `kubectl exec -it mongo-0 -- sh`
+- `mongo`
+- `use admin`, `db.auth("admin", "Passw0rd")`
+- `rs.initiate({ _id: "rs0", members: [ { _id: 0, host: "mongo-0.db-svc:27017" }, { _id: 1, host: "mongo-1.db-svc:27017" }, { _id: 2, host: "mongo-2.db-svc:27017" } ] })`
+- `rs.status()`
+  - primaryまたはsecondaryになればレプリカセットの初期化終わり
+- `show dbs`が実行できればok
