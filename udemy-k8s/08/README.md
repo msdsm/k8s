@@ -142,3 +142,22 @@ flowchart LR
 9. `use admin`でdbをadminに変更
 10. `db.auth("admin", "Passw0rd")`でログイン
 11. `show dbs`で閲覧できる
+
+## **6. DBサーバーの構築 (StatefulSet)** : `08-06`
+### 概要
+- StatefulSetを利用することでレプリケーションを実現
+  - レプリケーションとは読み書き可能なプライマリと読み取り可能なセカンダリから構成される冗長化されたDBのこと
+1. PV, Secret, StatefulSetを作成
+2. 作成したPodに入る
+3. MongoDBへ接続
+4. 設定したユーザー名/パスワードで認証
+5. DB一覧を表示
+### 
+1. `weblog-db-statefulset.yml`でStatefulSetを定義してPodをStatefulSetのtemplateに移動
+2. `kubectl applpy -f weblog-db-statefulset.yml`
+3. `kubectl get pod`で3個(replicasでしたいした個数)作成される
+4. `kubectl exec -it mongodb-0 -- sh`
+5. `mongo`, `use admin`, `db.auth("admin", "Passw0rd")`
+6. `exit`, `exit`
+7. `kubectl delete -f weblog-db-statefulset.yml`
+8. `persistentvolume/volume-00`を02まで
