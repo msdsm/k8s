@@ -96,7 +96,7 @@ flowchart LR
 7. `docker container stop vibrant_babbage`
 8. `docker container prune`
 
-## **3. DBサーバーの構築(ストレージ)**
+## **3. DBサーバーの構築 (ストレージ)**
 ### 内容
 1. PersistentVolumeとPersistentVolumeClaimのペアを作成
 2. PVCはDB(MongoDB)にあり, PVはhostpathを設定するためLocal Storageにある
@@ -105,4 +105,17 @@ flowchart LR
 2. `kubectl apply -f weblog-db-storage.yml`
 3. `kubectl get pv,pvc`
 
-##
+## **4. DBサーバーの構築 (Pod)**
+### 内容
+1. DBサーバーを構築する
+2. Podを立ててPVCと接続させる
+### 手順
+1. `weblog-db-storage.yml`を持ってくる
+2. pv, pvcに加えてPodを実装
+3. `kubectl apply -f weblog-db-storage.yml`
+4. `kubectl exec -it mongodb -- sh`
+5. `mongodb`
+6. `show dbs`
+7. `exit`でdbから抜ける
+8. `exit`でPodから抜ける
+9. `kubectl delete -f weblog-db-storage.yml`
