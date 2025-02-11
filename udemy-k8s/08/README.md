@@ -181,3 +181,21 @@ flowchart LR
 - `rs.status()`
   - primaryまたはsecondaryになればレプリカセットの初期化終わり
 - `show dbs`が実行できればok
+
+## **8. DBサーバーの構築 (初期化) ** : `08-08`
+### 概要
+- `08-07`のレプリカセットを起動したまま
+1. デバッグ用Podを起動
+2. 初期化スクリプトをデバッグ用Podへコピー
+3. デバッグ用Podへ入る
+4. MongoDBへ接続してプライマリを確認して切断
+5. 初期化スクリプトを修正
+6. 初期化スクリプトを実行
+7. いずれかのMongoDBに接続してデータが入ったことを確認
+### 手順
+1. `kubectl apply -f debug-pod.yml`
+2. `kubectl exec -it debug -- sh`
+3. `mongo mongo-0.db-svc`, `use admin`, `db.auth("admin", "Passw0rd")`
+4. primaryを探す
+5. primaryのmongo podに入って`sh init.sh`でデータ初期化
+6. `show dbs`, `use weblog`, `show collections`, `db.posts.find().pretty()`などで確認
