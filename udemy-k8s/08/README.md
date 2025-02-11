@@ -69,7 +69,7 @@ flowchart LR
     end
 ```
 
-## **1. デバッグ用イメージ作成**
+## **1. デバッグ用イメージ作成** : `08-01`
 ### 内容
 1. Dockerで作成したイメージを実行
 2. 実行中コンテナに入る
@@ -81,7 +81,7 @@ flowchart LR
 3. `kubectl exec -it debug -- sh`でpodに入る
 4. `jq`, `mongodb`, `ip`コマンドを実行できるか確認
 
-## **2. DBサーバーのイメージ作成**
+## **2. DBサーバーのイメージ作成** : `08-02`
 ### 内容
 1. DB初期化処理実装
 2. イメージ作成
@@ -96,7 +96,7 @@ flowchart LR
 7. `docker container stop vibrant_babbage`
 8. `docker container prune`
 
-## **3. DBサーバーの構築 (ストレージ)**
+## **3. DBサーバーの構築 (ストレージ)** : `08-03`
 ### 内容
 1. PersistentVolumeとPersistentVolumeClaimのペアを作成
 2. PVCはDB(MongoDB)にあり, PVはhostpathを設定するためLocal Storageにある
@@ -105,7 +105,7 @@ flowchart LR
 2. `kubectl apply -f weblog-db-storage.yml`
 3. `kubectl get pv,pvc`
 
-## **4. DBサーバーの構築 (Pod)**
+## **4. DBサーバーの構築 (Pod)** : `08-04`
 ### 内容
 1. DBサーバーを構築する
 2. Podを立ててPVCと接続させる
