@@ -240,7 +240,20 @@ flowchart LR
 
 ## **12. APサーバーの構築 (Service) ** : `08-12`
 ### 概要
+1. Secret, Deployment, Serviceを作成
+2. デバッグPodを作成して入る
+3. APサーバーへService経由で接続
+4. APサーバーのいずれかにログ出力されていることを確認
 ### 手順
+1. `kubectl apply -f weblog-app-service.yml`
+2. `kubectl exec -it debug -- sh`
+3. `curl http://app-svc:3000`
+    - このときクラスタ内部からService層経由でPodにアクセスしている
+    - このPodはDeploymentで複数作成されたものでServiceはロードバランサーの役割
+4. `exit`で抜けて3つのPodのlogをみる
+5. `kubectl logs nodeapp-548b5c6bf6-t7z6r`などで3つのログをみると1つのPodのみアクセスログがあるはず
+    - `[2025-02-11T15:12:23.196] [INFO] access - ::ffff:10.1.0.70 - - "GET / HTTP/1.1" 200 1404 "" "curl/7.29.0"`
+6. ロードバランサーの役割を果たしていることを確認できた
 
 ## **13. Webサーバーのイメージ作成** : `08-13`
 ### 概要
