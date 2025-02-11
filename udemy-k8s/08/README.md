@@ -199,3 +199,56 @@ flowchart LR
 4. primaryを探す
 5. primaryのmongo podに入って`sh init.sh`でデータ初期化
 6. `show dbs`, `use weblog`, `show collections`, `db.posts.find().pretty()`などで確認
+
+## **9. APサーバーのイメージ作成** : `08-09`
+### 概要
+1. MongoDBのプライマリ確認
+2. MongoDBに対するService, Endpointsを作成
+3. Dockerで作成したイメージを実行
+4. 作成したNode.jsアプリケーションコンテナへ接続
+5. MongoDB接続用Service, Endpointsを削除
+### 手順
+- `docker build -t weblog-app:v1.0.0 .`
+- `kubectl apply -f weblog-db-service.yml`
+- `docker run -e MONGODB_USERNAME="user" -e MONGODB_PASSWORD="welcome" -e MONGODB_HOSTS="host.docker.internal:32717" -e MONGODB_DATABASE="weblog" -e MONGODB_AUTH_SOURCE="weblog" -d -p 8080:3000 weblog-app:v1.0.0`
+- `curl localhost:8080`
+
+## **10. APサーバーの構築 (Pod + Secret) ** : `08-10`
+### 概要
+### 手順
+
+## **11. APサーバーの構築 (Deployment) ** : `08-11`
+### 概要
+### 手順
+
+## **12. APサーバーの構築 (Service) ** : `08-12`
+### 概要
+### 手順
+
+## **13. Webサーバーのイメージ作成** : `08-13`
+### 概要
+### 手順
+
+## **14. Webサーバーの構築 (Pod)** : `08-14`
+### 概要
+### 手順
+
+## **15. Webサーバーの構築 (Pod + ConfigMap)** : `08-15`
+### 概要
+### 手順
+
+## **16. Webサーバーの構築 (Deployment)** : `08-16`
+### 概要
+### 手順
+
+## **17. Webサーバーの構築 (Pod + ConfigMap)** : `08-17`
+### 概要
+### 手順
+
+## **18. Webサーバーの構築 (Deployment)** : `08-18`
+### 概要
+### 手順
+
+## **19. Webサーバーの構築 (Service)** : `08-19`
+### 概要
+### 手順
