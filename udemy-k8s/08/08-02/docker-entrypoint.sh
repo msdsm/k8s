@@ -27,6 +27,9 @@ mongo "${MONGO_INITDB_DATABASE}" <<-EOS
     pwd: "${MONGO_INITDB_ROOT_PASSWORD}",
     roles: [{ role: "root", db: "${MONGO_INITDB_DATABASE:-admin}"}]
   })
+  // 作成確認を追加
+  print("User creation result:");
+  db.getUser("${MONGO_INITDB_ROOT_USERNAME}");
 EOS
 }
 

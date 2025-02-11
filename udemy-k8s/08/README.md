@@ -119,3 +119,26 @@ flowchart LR
 7. `exit`でdbから抜ける
 8. `exit`でPodから抜ける
 9. `kubectl delete -f weblog-db-storage.yml`
+
+## **5. DBサーバーの構築 (Pod + Secret)** : `08-05`
+### 概要
+- Secretを作成してmongodb内のPodに接続する
+1. keyfile (ランダム文字列) を作成
+2. Secretリソースを作成
+3. SecretリソースのYAMLを取得
+4. `weblog-db-pod.yml`へマージ
+5. Secretリソースを削除
+### 手順
+1. `openssl rand -base64 1024 | tr -d '\r\n' | cut -c 1-1024 > keyfile`で文字列生成
+2. `kubectl create secret generic mongo-secret --from-literal=root_username=admin --from-literal=root_password=Passw0rd --from-file=./keyfile`でsecret作成
+3. `kubectl get secret/mongo-secret -o yaml`でSecretの内容をyamlで得る
+    - これによりSecretのyamlファイルには暗号化された文字列が記述される
+    - 実際に環境変数に入る値はSecretのyamlファイルで記述された文字列をdecodeしたもの
+4. `weblog-db-storage.yml`を更新
+5. `kubectl apply -f weblog-db-storage.yml`
+6. `kubectl exec -it mongodb -- sh`で入る
+7. `mongo`でdbに入る
+8. `show dbs`を実行するとエラーになる
+9. `use admin`でdbをadminに変更
+10. `db.auth("admin", "Passw0rd")`でログイン
+11. `show dbs`で閲覧できる
