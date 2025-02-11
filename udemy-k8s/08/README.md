@@ -215,7 +215,16 @@ flowchart LR
 
 ## **10. APサーバーの構築 (Pod + Secret) ** : `08-10`
 ### 概要
+1. Secret, Podを作成
+2. デバッグPodを作成して入る
+3. APサーバーPodへ接続確認
 ### 手順
+1. `kubectl apply -f weblog-app-pod.yml`
+2. `kubectl get pod -o wide`
+3. `kubectl exec -it debug -- sh`
+4. `curl 10.1.0.71:3000`でdebug用podからAPサーバーへアクセス
+5. `kubectl delete pod/nodeapp`でpodだけ削除してSecretは残す
+
 
 ## **11. APサーバーの構築 (Deployment) ** : `08-11`
 ### 概要
