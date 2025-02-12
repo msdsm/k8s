@@ -311,7 +311,15 @@ flowchart LR
  
 ## **17. Webサーバーの構築 (Service)** : `08-17`
 ### 概要
+1. `ConfigMap, Deployment`を作成
+2. デバッグPodを作成して入る
+3. WebサーバーServiceへ接続確認
 ### 手順
+1. `kubectl apply -f weblog-web-svc.yml`
+2. `kubectl get svc`
+3. `kubectl exec -it debug -- sh`
+4. `curl IP`
+5. svcにアクセスできたら完成
 
 ## **18. Webサーバーの構築 (Ingress)** : `08-18`
 ### 概要
