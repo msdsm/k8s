@@ -267,7 +267,18 @@ flowchart LR
 
 ## **14. Webサーバーの構築 (Pod)** : `08-14`
 ### 概要
+- ゴールはConfigMap, Deployment, Serviceを作成
+1. 今回は上記のためにまずはPodを作成
+1. 作成したWebサーバーPodのIPアドレスを確認
+2. デバッグPodを作成して入る
+3. Webサーバーへ接続
+4. 接続したWebサーバーにアクセスログがあることを確認
 ### 手順
+- `kubectl apply -f weblog-web-pod.yml`
+- `kubectl get pod -o wide`で今回作成したPodのIP取得
+- `kubectl exec -it debug --sh`
+- `curl IP`
+- `exit`してAPサーバーの3つのPodのlogを順番に表示するとどれか1つにアクセスログがある
 
 ## **15. Webサーバーの構築 (Pod + ConfigMap)** : `08-15`
 ### 概要
