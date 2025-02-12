@@ -323,4 +323,6 @@ flowchart LR
 
 ## **18. Webサーバーの構築 (Ingress)** : `08-18`
 ### 概要
+1. Ingressを作成
+2. Kubernetesへ外部(クラスタの外側)から接続確認(ブラウザ)
 ### 手順
