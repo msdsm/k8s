@@ -282,20 +282,27 @@ flowchart LR
 
 ## **15. Webサーバーの構築 (Pod + ConfigMap)** : `08-15`
 ### 概要
+1. ConfigMap, Podを作成
+2. WebサーバーPodに入ってConfigMapを利用していることを確認
+3. WebサーバーPodのIPアドレスを確認
+4. デバッグPodを作成して入る
+5. WebサーバーPodへ接続確認
 ### 手順
+1. `kubectl apply -f weblog-web-pod+configmap.yml`
+2. `kubectl exec -it nginx -- sh`
+3. `cat /etc/nginx/nginx.conf`
+4. `exit`
+5. `kubectl exec -it debug -- sh`
+6. `curl IP`
 
 ## **16. Webサーバーの構築 (Deployment)** : `08-16`
 ### 概要
 ### 手順
 
-## **17. Webサーバーの構築 (Pod + ConfigMap)** : `08-17`
+## **17. Webサーバーの構築 (Service)** : `08-17`
 ### 概要
 ### 手順
 
-## **18. Webサーバーの構築 (Deployment)** : `08-18`
-### 概要
-### 手順
-
-## **19. Webサーバーの構築 (Service)** : `08-19`
+## **18. Webサーバーの構築 (Ingress)** : `08-18`
 ### 概要
 ### 手順
