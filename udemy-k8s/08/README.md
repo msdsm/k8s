@@ -297,8 +297,18 @@ flowchart LR
 
 ## **16. Webサーバーの構築 (Deployment)** : `08-16`
 ### 概要
+1. ConfigMap, Deploymentを作成
+2. WebサーバーPodのIPアドレスを確認
+3. デバッグPodを作成して入る
+4. WebサーバーPodいずれかへ接続確認
 ### 手順
-
+1. `kubectl apply -f weblog-web-deploy.yml`
+2. `kubectl get pod -o wide`
+3. `kubectl exec -it debug -- sh`
+4. `curl curl 10.1.0.84`
+5. `curl curl 10.1.0.85`
+6. `curl curl 10.1.0.86`
+ 
 ## **17. Webサーバーの構築 (Service)** : `08-17`
 ### 概要
 ### 手順
