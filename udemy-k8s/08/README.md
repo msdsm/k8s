@@ -257,7 +257,13 @@ flowchart LR
 
 ## **13. Webサーバーのイメージ作成** : `08-13`
 ### 概要
+1. APサーバーへアクセスするServiceサービスを作成
+2. Webサーバーコンテナ起動
+3. 外部からブラウザでアクセスして画面確認
 ### 手順
+1. `kubectl apply -f weblog-app-service.yml`
+2. `docker run -e APPLICATION_HOST=localhost:30000 -p 8080:80 -d weblog-web:v1.0.0`
+3. `curl localhost:30000`
 
 ## **14. Webサーバーの構築 (Pod)** : `08-14`
 ### 概要
