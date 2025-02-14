@@ -182,7 +182,7 @@ flowchart LR
   - primaryまたはsecondaryになればレプリカセットの初期化終わり
 - `show dbs`が実行できればok
 
-## **8. DBサーバーの構築 (初期化) ** : `08-08`
+## **8. DBサーバーの構築 (初期化)** : `08-08`
 ### 概要
 - `08-07`のレプリカセットを起動したまま
 1. デバッグ用Podを起動
@@ -213,7 +213,7 @@ flowchart LR
 - `docker run -e MONGODB_USERNAME="user" -e MONGODB_PASSWORD="welcome" -e MONGODB_HOSTS="host.docker.internal:32717" -e MONGODB_DATABASE="weblog" -e MONGODB_AUTH_SOURCE="weblog" -d -p 8080:3000 weblog-app:v1.0.0`
 - `curl localhost:8080`
 
-## **10. APサーバーの構築 (Pod + Secret) ** : `08-10`
+## **10. APサーバーの構築 (Pod + Secret)** : `08-10`
 ### 概要
 1. Secret, Podを作成
 2. デバッグPodを作成して入る
@@ -226,7 +226,7 @@ flowchart LR
 5. `kubectl delete pod/nodeapp`でpodだけ削除してSecretは残す
 
 
-## **11. APサーバーの構築 (Deployment) ** : `08-11`
+## **11. APサーバーの構築 (Deployment)** : `08-11`
 ### 概要
 1. Secret, Deploymentを作成
 2. デバッグPodを作成して入る
@@ -238,7 +238,7 @@ flowchart LR
 - `curl 10.1.0.72:3000`,`curl 10.1.0.73:3000`,`curl 10.1.0.74:3000`でdeployment経由で作成されたすべてのpodへのアクセス確認
 - `kubectl delete deploy/nodeapp`
 
-## **12. APサーバーの構築 (Service) ** : `08-12`
+## **12. APサーバーの構築 (Service)** : `08-12`
 ### 概要
 1. Secret, Deployment, Serviceを作成
 2. デバッグPodを作成して入る
